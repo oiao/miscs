@@ -1,5 +1,5 @@
-Android Backup with Duplicity
-=============================
+Android Backup and Encrypt
+==========================
 * Creates a tar ball on the device from `target_files.txt`
 * `adb pull`s the archive to local machine
 * Optionally encrypts it with GPG
