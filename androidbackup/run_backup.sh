@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
 # --nogpg flag to disable encryption
+# --nomd5 flag to disable checksum generation
 X=true
+MD5=true
 for arg in $@
 do
   if [ $arg = --nogpg ]
   then
     X=false
+  elif [ $arg = --nomd5 ]
+  then
+	MD5=false
   fi
 done
 
@@ -31,9 +36,19 @@ adb shell rm /sdcard/$FNAME /sdcard/$TARGETS
 # Encrypt
 if $X
 then
-  gpg -c $FNAME # Will ask for a passpharase
+  echo Encrypting
+  gpg -c -o $FNAME.gpg $FNAME # Will ask for a passpharase
   # gpg -c --batch --passphrase MYSECRETKEY $FNAME # Will use the provided passphrase
   rm $FNAME
+  FNAME=$FNAME.gpg
 fi
+
+# Checksum
+if $MD5
+then
+  echo Generating md5 checksum
+  md5sum $FNAME > $FNAME.md5
+fi
+
 
 echo All Done!

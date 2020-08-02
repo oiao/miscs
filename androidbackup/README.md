@@ -13,5 +13,5 @@ Usage
 * Connect device (check with `adb devices`)
 * Edit the `target_files.txt`
 * Run `./run_backup.sh`
-* To restore an archive, use `gpg -d ARCHIVE.tgz.gpg | tar xz`
+* To restore an archive, use `gpg -d ARCHIVE | tar xz`
 * Encryption can be disabled when the `--nogpg` flag is passed
