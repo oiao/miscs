@@ -10,6 +10,7 @@ Requirements
 
 Usage
 -----
+* Connect device (check with `adb devices`)
 * Edit the `target_files.txt`
 * Run `./run_backup.sh`
 
