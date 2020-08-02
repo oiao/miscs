@@ -1,7 +1,7 @@
 Android Backup with Duplicity
 =============================
-`adb pull`s all files in `target_files.txt` with to the local machine
-and creates a backup with duplicity afterwards.
+`adb pull`s all files in `target_files.txt` to the local machine
+and creates a duplicity backup in the _./backup_ folder_.
 
 Requirements
 ------------
