@@ -1,18 +1,17 @@
 Android Backup with Duplicity
 =============================
-`adb pull`s all files in `target_files.txt` to the local machine
-and creates a duplicity backup in the _./backup_ folder.
+* Creates a tar ball on the device from `target_files.txt`
+* `adb pull`s the archive to local machine
+* Optionally encrypts it with GPG
 
 Requirements
 ------------
 * Android Debug Bridge: `apt install adb`
-* Duplicity `apt install duplicity`
 
 Usage
 -----
 * Connect device (check with `adb devices`)
 * Edit the `target_files.txt`
 * Run `./run_backup.sh`
-
-
-
+* To restore an archive, use `gpg -d ARCHIVE.tgz.gpg | tar xz`
+* Encryption can be disabled when the `--nogpg` flag is passed

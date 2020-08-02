@@ -1,24 +1,39 @@
 #!/usr/bin/env bash
 
-if [ ! -f "target_files.txt" ]
+# --nogpg flag to disable encryption
+X=true
+for arg in $@
+do
+  if [ $arg = --nogpg ]
+  then
+    X=false
+  fi
+done
+
+TARGETS="target_files.txt"
+if [ ! -f $TARGETS ]
 then
-    echo "target_files.txt does not exist, exiting."
+    echo "$TARGETS does not exist, exiting."
 	exit 1
 fi
 
-mkdir tmpbak
+FNAME=bak$(date +"%y%m%d_%k%M").tar.gz
 
-# Read `target_files.txt`, adb pull every line
-while read LINE
-do
-	if [[ $LINE != \#* ]] && [[ ! -z $LINE ]]
-	then
-		echo Pulling $LINE
-		adb pull $LINE tmpbak/.
-	fi
-done < target_files.txt
+echo "Pushing targets"
+adb push $TARGETS /sdcard/$TARGETS
+echo "Creating archive"
+adb shell tar -T /sdcard/$TARGETS -czvf /sdcard/$FNAME
+echo "Pulling archive"
+adb pull /sdcard/$FNAME .
+echo "Cleaning device"
+adb shell rm /sdcard/$FNAME /sdcard/$TARGETS
 
-duplicity tmpbak file://backup
+# Encrypt
+if $X
+then
+  gpg -c $FNAME # Will ask for a passpharase
+  # gpg -c --batch --passphrase MYSECRETKEY $FNAME # Will use the provided passphrase
+  rm $FNAME
+fi
 
-rm tmpbak -r
 echo All Done!
