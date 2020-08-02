@@ -1,6 +1,6 @@
 Android Backup and Encrypt
 ==========================
-* Creates a tar ball on the device from `target_files.txt`
+* Creates a tarball on the Android device from `target_files.txt`
 * `adb pull`s the archive to local machine
 * Optionally encrypts it with GPG
 

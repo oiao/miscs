@@ -1,4 +1,2 @@
 # Enter the absolute paths you would like to back up here. One path per line
-
-# sdcard/Pictures
-sdcard/bluetooth
+/sdcard/bluetooth
