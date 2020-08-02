@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [ ! -f "target_files.txt" ]
+then
+    echo "target_files.txt does not exist, exiting."
+	exit 1
+fi
+
 mkdir tmpbak
 
 # Read `target_files.txt`, adb pull every line
