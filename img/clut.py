@@ -28,7 +28,7 @@ Optional arguments
     (.png format). Defaults to the `CLUTPATH` in this script.
 """
 
-CLUTPATH = '/home/leo/Downloads/HaldCLUT'
+CLUTPATH = 'YOUR_PATH_HERE'
 
 import os
 from os.path import join as opj
