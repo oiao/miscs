@@ -25,7 +25,9 @@ Optional arguments
 --cluts: PATH
     This path and it's sub-directories
     will be used to look for suitable CLUT image files
-    (.png format). Defaults to the `CLUTPATH` in this script.
+    (.png format).
+    A path to a single clut file can also be provided.
+    Defaults to the `CLUTPATH` in this script.
 """
 
 CLUTPATH = 'YOUR_PATH_HERE'
@@ -58,9 +60,16 @@ elif os.path.isfile(args.outdir):
     print(f"Out dir {args.outdir} exists!")
     exit(1)
 
-# List all possible clut images in `args.cluts` and all subdirs
-cluts = [[opj(dir,file) for file in files if file.endswith('.png')] for dir,_,files in os.walk(args.cluts)]
-cluts = [j for i in cluts for j in i] # Flatten
+if os.path.isdir(args.cluts):
+    # List all possible clut images in `args.cluts` and all subdirs
+    cluts = [[opj(dir,file) for file in files if file.endswith('.png')] for dir,_,files in os.walk(args.cluts)]
+    cluts = [j for i in cluts for j in i] # Flatten
+elif os.path.isfile(args.cluts):
+    # Single clut file
+    cluts = [args.cluts]
+else:
+    print(f"The CLUT path '{args.cluts}' does not seem to exist. Check your inputs and adjust with the '--cluts' argument")
+    exit(1)
 
 def convert(clut):
     cmd = ['convert', args.targetfile, '-depth', args.depth, clut, '-hald-clut', opj(args.outdir, os.path.basename(clut))]
