@@ -50,16 +50,7 @@ parser.add_argument('--cluts',         default=CLUTPATH)
 args = parser.parse_args()
 t0 = time()
 
-# If no outdir provided, use the target files' base name as default
-if not args.outdir:
-    args.outdir = os.path.basename(os.path.splitext(args.targetfile)[0])
-
-if not os.path.exists(args.outdir):
-    os.makedirs(args.outdir)
-elif os.path.isfile(args.outdir):
-    print(f"Out dir {args.outdir} exists!")
-    exit(1)
-
+# Check the clut path
 if os.path.isdir(args.cluts):
     # List all possible clut images in `args.cluts` and all subdirs
     cluts = [[opj(dir,file) for file in files if file.endswith('.png')] for dir,_,files in os.walk(args.cluts)]
@@ -70,6 +61,18 @@ elif os.path.isfile(args.cluts):
 else:
     print(f"The CLUT path '{args.cluts}' does not seem to exist. Check your inputs and adjust with the '--cluts' argument")
     exit(1)
+
+
+# If no outdir provided, use the target files' base name as default
+if not args.outdir:
+    args.outdir = os.path.basename(os.path.splitext(args.targetfile)[0])
+
+if not os.path.exists(args.outdir):
+    os.makedirs(args.outdir)
+elif os.path.isfile(args.outdir):
+    print(f"Out dir {args.outdir} exists!")
+    exit(1)
+
 
 def convert(clut):
     cmd = ['convert', args.targetfile, '-depth', args.depth, clut, '-hald-clut', opj(args.outdir, os.path.basename(clut))]
