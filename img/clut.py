@@ -5,7 +5,7 @@ Use ImageMagick to apply a batch of HaldCLUT matrices to a target file.
 
 Usage
 -----
-clut TARGET_IMG.jpg
+./clut TARGET_IMG.jpg
 
 
 Optional arguments
