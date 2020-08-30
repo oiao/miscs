@@ -15,7 +15,7 @@ Optional arguments
     By default, the TARGET_IMG base name is used.
 -r --resize: STR
     Resize argument to be passed to imagemagick.
-    A value of `50%` or lower is highly recommended if applying a large number of
+    Recommended if applying a large number of
     cluts to the target file.
 -d, --depth: INT
     The color depth of the output images. 8bit by default.
@@ -85,7 +85,8 @@ def convert(clut):
 with ThreadPoolExecutor(max_workers=args.workers) as e:
     e.map(convert, cluts)
 
-print(f"Saved {len(cluts)} modifications of {ars.targetfile} to {args.outdir} in {time()-t0} seconds.")
+t = time()-t0
+print(f"Saved {len(cluts)} modifications of {args.targetfile} to {args.outdir} in {t/60 if t>60 else t:.1f} {'seconds' if t <= 60 else 'minutes'}")
 
 
 
