@@ -6,7 +6,7 @@ Android Backup and Encrypt
 
 Requirements
 ------------
-* Android Debug Bridge: `apt install adb`
+* [Android Debug Bridge](https://developer.android.com/studio/command-line/adb)
 
 Usage
 -----
